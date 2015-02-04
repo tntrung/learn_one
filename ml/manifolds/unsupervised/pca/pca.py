@@ -44,31 +44,30 @@ def pca_k( X , k ):
 # === PCA keeps p% variance retained ===================================
 def pca_p( X , p ):
 	
-	U,s,mean = pca(X)
+	U,s = pca(X)
 
 	acc = np.cumsum(s)/ np.sum(s)
 
 	idx = np.where( acc < p )
 
-	return (U[idx], s[idx], mean)
+	return (U[idx], s[idx])
 
 
 # === PCA whitening ====================================================
 def proj_pca_white( X, U, s ):
 	
-	XRot = np.dot(X,U.T)
+	XRot = np.dot(X,U)
 
-	print np.tile(s, (XRot.shape[0], 1))
+	#print np.tile(s, (XRot.shape[0], 1))
 
-	Xwhite = XRot / np.sqrt(np.tile(s, (XRot.shape[0], 1)))
+	Xwhite = XRot / np.sqrt(np.tile(s + 0.1, (XRot.shape[0], 1)))
 
 	return Xwhite
 
 # === ZCA Whitening ====================================================
 def zca_white( X, U, s ):
 
-	# avoiding if eigen values are too smalle (~ 0.0)
-	s = s + 10**(-5)
+	# avoiding if eigen values are too smalle
 
 	XWhite = proj_pca_white(X, U, s)
 
