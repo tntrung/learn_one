@@ -1,0 +1,2 @@
+- pcaData.txt: 2d points to visualize PCA and other reduction methods.
+- patchData.txt: 144 x 10000 contains patches extracted from natural images.

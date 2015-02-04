@@ -2,6 +2,7 @@
 # and its variations
 
 import numpy as np
+#import matplotlib.pyplot as plt
 
 # The objective function of PCA as follows:
 #
@@ -15,16 +16,22 @@ import numpy as np
 def pca( X ):
 	
 	# computing mean vector
-	mean = np.mean(X,axis=0)
+	#mean = np.mean(X,axis=0)
 
 	# zero mean the data
-	E = X - mean[np.newaxis,:]
+	#E = X - mean[np.newaxis,:]
 
 	# computing pca basis
-	sigma = np.cov(E.T)
+	#sigma = np.cov(E.T)
+
+	sigma = np.dot(X.T,X)/X.shape[0]
+
+	#plt.imshow(sigma);
+	#plt.show();
+
 	U, s, V = np.linalg.svd(sigma, full_matrices=True)
 
-	return (U, s, mean)
+	return (U, s)
 
 # === PCA keeps k eigen vectors ========================================
 def pca_k( X , k ):
@@ -43,7 +50,7 @@ def pca_p( X , p ):
 
 	idx = np.where( acc < p )
 
-	return (U[:,idx], s[idx], mean)
+	return (U[idx], s[idx], mean)
 
 
 # === PCA whitening ====================================================
