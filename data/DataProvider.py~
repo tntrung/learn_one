@@ -1,0 +1,35 @@
+import cifar10
+
+class DataProvder(object):
+
+	# Constructor
+	def __init__(self, db_name, db_path):
+		"""
+		Init DataProvider with db_name and db_path provided
+
+		Parameters
+		---
+			db_name: the database name, default (mnist)
+			db_path: the database path, default ('./db_name/')		
+		"""
+		db_list = ['mnist', 'cifar10']
+		
+		# check whether db_name is supported
+		if ~any(db_name in s for for s in db_list):
+			print db_name, " is not suppored!"
+
+		self.db_name = db_name
+
+		if db_path.empty
+			self.db_path = './' + db_name
+		
+
+	def load_data():
+		
+		if self.db_name == 'cifar10':
+			Xtrain, Ytrain, Xtest, Ytest = cifar10.load_CIFAR10(self.db_path)
+			
+
+		return Xtrain, Ytrain, Xtest, Ytest
+			
+		
