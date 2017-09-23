@@ -51,5 +51,55 @@ class KNearestNeighbor(object):
 		return Ypred
 			
 			
-		
+	def cross_validation(self, X, Y, karr, verbose = 0):
+			
+		Xdev = X[:1000,:] # take first 1000 images for dev set
+		Ydev = Y[:1000] # take first 1000 images for dev set
+		Xtr  = X[1000:,:] # remain images as training set
+		Ytr  = Y[1000:] # remain images as training set
 
+		val_accs = []
+
+		for k in karr:
+			print 'Cross validating k = %d' %(k)
+			# train model
+			self.train(Xtr, Ytr, verbose)
+			# predict labels
+			Ypred = self.predict(Xdev, k, verbose)
+			acc = np.mean(Ypred == Ydev)
+			val_accs.append((k, acc))
+		if (verbose == 1):
+			print 'Cross validation accuracy:'	
+			print val_accs
+		return val_accs
+
+
+	def easy(self, Xtr, Ytr, Xt, Yt, karr, cross_val = 0, verbose = 0):
+		"""
+		Use a single function with knn
+		
+		Input
+		---
+			Xtr, Ytr, Xt, Yt: image and label of train and test resepectively X: (N x d), Y (N x 1)
+			karr: a numpy array, e.g, [1] or [1, 5, 4, 7, 6], 
+			cross_val: if want to use cross validation, 0: karr[0] is used for training.
+			verbose - 1: print detail information, otherwise 0
+		"""
+		acc = []
+		if cross_val == 0:
+			self.train(Xtr, Ytr, verbose)
+			Yt_hat = self.predict(Xt, karr[0], verbose)
+			acc = np.mean(Yt == Yt_hat)
+			if (verbose == 1):
+				print 'Accuracy: %f' % (acc)
+		else:
+			val_accs = self.cross_validation(Xtr, Ytr, karr, verbose)
+			best_k = [x for x,_ in sorted(val_accs, reverse=True, key=lambda pair: pair[1])]
+			if (verbose == 1):
+				print 'Best accuracy according the number of nearest neighbor:'
+				print best_k
+			Yt_hat = self.predict(Xt, best_k[0], verbose)
+			acc = np.mean(Yt == Yt_hat)
+			if (verbose == 1):
+				print 'Accuracy: %f with k = %d' % (acc, best_k[0])
+		return acc
