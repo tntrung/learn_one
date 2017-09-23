@@ -1,3 +1,4 @@
+import numpy as np
 from data import data_provider as dp
 from ml.classification.knn import knn
 
