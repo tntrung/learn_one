@@ -7,11 +7,13 @@ data = dp.DataProvider('cifar10')
 
 # classify images
 classifier = knn.KNearestNeighbor()
-classifier.train(Xtr, Ytr, 1)
-Yt_hat = classifier.predict(Xt, 5, 1)
+# train
+classifier.train(Xtr, Ytr, verbose = 1)
+# predict with k = 5
+Yt_hat = classifier.predict(Xt, k = 5, verbose = 1)
 
 # accuracy
-acc = np.mean(Yval_predict == Yval)
+acc = np.mean(Yt == Yt_hat)
 print 'Accuracy: %f' % (acc)
 
 
