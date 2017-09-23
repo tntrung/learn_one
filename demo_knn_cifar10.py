@@ -20,9 +20,9 @@ print 'Accuracy: %f' % (acc)
 # uncomment if you want to use
 
 # cross validation 
-# acc_list = classifier.cross_validation(Xtr, Ytr, [1,2,3,4,5,6,7,8,9], verbose = 1)
-# print "Acc list:"
-# print acc_list
+acc_list = classifier.cross_validation(Xtr, Ytr, [1,2,3,4,5,6,7,8,9], verbose = 1)
+print "Acc list:"
+print acc_list
 
 # easy use knn
 # acc = classifier.easy(Xtr, Ytr, Xt, Yt, karr = [1, 3, 5], cross_val = 1, verbose = 1)

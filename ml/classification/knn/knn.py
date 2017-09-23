@@ -53,10 +53,14 @@ class KNearestNeighbor(object):
 			
 	def cross_validation(self, X, Y, karr, verbose = 0):
 			
-		Xdev = X[:1000,:] # take first 1000 images for dev set
-		Ydev = Y[:1000] # take first 1000 images for dev set
-		Xtr  = X[1000:,:] # remain images as training set
-		Ytr  = Y[1000:] # remain images as training set
+		split_idx = int(np.ceil(X.shape[0] * 0.2))
+		if (verbose == 1):
+			print 'Spliting indices for train [%d:%d], and test [1:%d].' %(split_idx, X.shape[0], split_idx)
+
+		Xdev = X[:split_idx,:] # take first 1000 images for dev set
+		Ydev = Y[:split_idx] # take first 1000 images for dev set
+		Xtr  = X[split_idx:,:] # remain images as training set
+		Ytr  = Y[split_idx:] # remain images as training set
 
 		val_accs = []
 
