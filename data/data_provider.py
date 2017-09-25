@@ -39,7 +39,7 @@ class DataProvider(object):
 			Xtrain, Ytrain, Xtest, Ytest = cifar10.load_CIFAR10(self.db_path)
 			if reshape == True:
 				Xtrain = Xtrain.reshape(Xtrain.shape[0], 32 * 32 * 3)
-				Xtest  = Xtrain.reshape(Xtest.shape[0], 32 * 32 * 3)
+				Xtest  = Xtest.reshape(Xtest.shape[0], 32 * 32 * 3)
 			return Xtrain, Ytrain, Xtest, Ytest
 			
 		
