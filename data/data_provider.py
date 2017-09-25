@@ -35,6 +35,7 @@ class DataProvider(object):
 		# Load cifar dataset:
 		# original link: https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
 		# download manually and uncompress it in correct path
+		# Original size: h x w x 3, pixel values range from 0 to 255 on each channel
 		if self.db_name == 'cifar10':
 			Xtrain, Ytrain, Xtest, Ytest = cifar10.load_CIFAR10(self.db_path)
 			if reshape == True:
